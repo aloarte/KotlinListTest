@@ -2,4 +2,5 @@
     <string name="app_name">KotlinListTest</string>
     <string name="home_switch_label">Display only visible accounts</string>
     <string name="btn_display_list">Display List</string>
+    <string name="return_home">Return</string>
 </resources>

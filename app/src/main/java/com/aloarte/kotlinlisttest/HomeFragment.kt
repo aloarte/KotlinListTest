@@ -9,7 +9,7 @@ import kotlinx.android.synthetic.main.fragment_home.*
 
 class HomeFragment : Fragment() {
 
-
+    //Save if the switch that hide the not visible accounts is selected
     var hideInvAccounts = false
 
     override fun onCreateView(
@@ -26,7 +26,11 @@ class HomeFragment : Fragment() {
         super.onStart()
     }
 
+    /**
+     * Initialize the views of the HomeFragment
+     */
     private fun initViews() {
+
         btn_display_list.setOnClickListener { startListFragment(hideInvAccounts) }
 
         sw_hide_invis.setOnCheckedChangeListener { _, isChecked ->
@@ -36,8 +40,10 @@ class HomeFragment : Fragment() {
 
     }
 
+    /**
+     * Start the ListFragment by calling to MainActivity
+     */
     private fun startListFragment(hideInvAccSelected: Boolean) {
-//        activity.startListFragment(hideInvAccSelected)
         (activity as MainActivity).startListFragment(hideInvAccSelected)
     }
 

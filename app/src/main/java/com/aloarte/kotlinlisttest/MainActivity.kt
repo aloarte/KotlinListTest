@@ -9,9 +9,13 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        //Set the HomeFragment as the initial one
         supportFragmentManager.beginTransaction().replace(R.id.fragment_container, HomeFragment()).commit()
     }
 
+    /**
+     * Starts the ListFragment
+     */
     fun startListFragment(hideInvAccSelected: Boolean) {
         val fragment = ListFragment()
         fragment.hideInvAccounts(hideInvAccSelected)
@@ -20,6 +24,9 @@ class MainActivity : AppCompatActivity() {
 
     }
 
+    /**
+     * Starts the HomeFragment
+     */
     fun startHomeFragment() {
         supportFragmentManager.beginTransaction().replace(R.id.fragment_container, HomeFragment()).commit()
 
