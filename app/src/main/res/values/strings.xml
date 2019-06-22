@@ -3,4 +3,10 @@
     <string name="home_switch_label">Display only visible accounts</string>
     <string name="btn_display_list">Display List</string>
     <string name="return_home">Return</string>
+    <string name="example_account_name">Rodrigo Rodríguez Rodríguez</string>
+    <string name="example_account_iban">ES12312 123 12312123</string>
+    <string name="example_account_type">PAYMENT</string>
+    <string name="example_account_balance">10000</string>
+    <string name="example_account_currency">EUR</string>
+
 </resources>

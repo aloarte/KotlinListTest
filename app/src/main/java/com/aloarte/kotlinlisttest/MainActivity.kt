@@ -2,6 +2,8 @@ package com.aloarte.kotlinlisttest
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import com.aloarte.kotlinlisttest.fragments.HomeFragment
+import com.aloarte.kotlinlisttest.fragments.ListFragment
 
 class MainActivity : AppCompatActivity() {
 
@@ -10,7 +12,9 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         //Set the HomeFragment as the initial one
-        supportFragmentManager.beginTransaction().replace(R.id.fragment_container, HomeFragment()).commit()
+        supportFragmentManager.beginTransaction().replace(R.id.fragment_container,
+            HomeFragment()
+        ).commit()
     }
 
     /**
@@ -28,7 +32,9 @@ class MainActivity : AppCompatActivity() {
      * Starts the HomeFragment
      */
     fun startHomeFragment() {
-        supportFragmentManager.beginTransaction().replace(R.id.fragment_container, HomeFragment()).commit()
+        supportFragmentManager.beginTransaction().replace(R.id.fragment_container,
+            HomeFragment()
+        ).commit()
 
     }
 }
