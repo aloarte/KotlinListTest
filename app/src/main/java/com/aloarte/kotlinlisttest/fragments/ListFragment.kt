@@ -12,11 +12,12 @@ import com.aloarte.kotlinlisttest.model.Account
 import com.aloarte.kotlinlisttest.model.AccountList
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.fragment_list.*
+import java.io.InputStream
 
 class ListFragment : Fragment() {
 
     //Save if the switch that hide the not visible accounts is selected
-    var hideInvisAccounts = false
+    private var hideInvisAccounts = false
 
     fun hideInvAccounts(hideInvAccounts: Boolean) {
         this.hideInvisAccounts = hideInvAccounts
@@ -51,17 +52,16 @@ class ListFragment : Fragment() {
         val listAccounts = parseJson()
 
         //If the switch was selected, remove the not visible accounts
-        if(hideInvisAccounts){
-            return removeNotVisible(listAccounts.accounts!!)
-        }
-        else return listAccounts.accounts!!
+        return if (hideInvisAccounts) {
+            removeNotVisible(listAccounts.accounts!!)
+        } else listAccounts.accounts!!
     }
 
     /**
      * Remove the not visible accounts from the ArrayList of Account
      */
     private fun removeNotVisible(accounts: ArrayList<Account>): ArrayList<Account> {
-        var retAccountList: ArrayList<Account> =  ArrayList()
+        val retAccountList: ArrayList<Account> = ArrayList()
 
         //Iterate the list
         for(account in accounts){
@@ -84,52 +84,19 @@ class ListFragment : Fragment() {
      * Parse the data from the JSON into an AccountList
      */
     private fun parseJson() : AccountList {
-        var jsonString = "{\n" +
-                "  \"accounts\": [\n" +
-                "    {\n" +
-                "      \"accountBalanceInCents\": 985000,\n" +
-                "      \"accountCurrency\": \"EUR\",\n" +
-                "      \"accountId\": 748757694,\n" +
-                "      \"accountName\": \"Hr P L G N StellingTD\",\n" +
-                "      \"accountNumber\": 748757694,\n" +
-                "      \"accountType\": \"PAYMENT\",\n" +
-                "      \"alias\": \"\",\n" +
-                "      \"isVisible\": true,\n" +
-                "      \"iban\": \"NL23INGB0748757694\"\n" +
-                "    },\n" +
-                "    {\n" +
-                "      \"accountBalanceInCents\": 1000000,\n" +
-                "      \"accountCurrency\": \"EUR\",\n" +
-                "      \"accountId\": 700000027559,\n" +
-                "      \"accountName\": \",\",\n" +
-                "      \"accountNumber\": 748757732,\n" +
-                "      \"accountType\": \"PAYMENT\",\n" +
-                "      \"alias\": \"\",\n" +
-                "      \"isVisible\": false,\n" +
-                "      \"iban\": \"NL88INGB0748757732\"\n" +
-                "    },\n" +
-                "    {\n" +
-                "      \"accountBalanceInCents\": 15000,\n" +
-                "      \"accountCurrency\": \"EUR\",\n" +
-                "      \"accountId\": 700000027559,\n" +
-                "      \"accountName\": \"\",\n" +
-                "      \"accountNumber\": \"H 177-27066\",\n" +
-                "      \"accountType\": \"SAVING\",\n" +
-                "      \"alias\": \"G\\\\UfffdLSAVINGSdiacrits\",\n" +
-                "      \"iban\": \"\",\n" +
-                "      \"isVisible\": true,\n" +
-                "      \"linkedAccountId\": 748757694,\n" +
-                "      \"productName\": \"Oranje Spaarrekening\",\n" +
-                "      \"productType\": 1000,\n" +
-                "      \"savingsTargetReached\": 1,\n" +
-                "      \"targetAmountInCents\": 2000\n" +
-                "    }\n" +
-                "  ],\n" +
-                "  \"failedAccountTypes\" : \"CREDITCARDS\",\n" +
-                "  \"returnCode\" : \"OK\"\n" +
-                "}"
-        var accountList = Gson().fromJson(jsonString, AccountList::class.java)
-        return accountList
+        return Gson().fromJson(readJsonFromFile(), AccountList::class.java)
+    }
+
+    /**
+     * Read the Json from the .json in assets
+     */
+    private fun readJsonFromFile(): String {
+        return try {
+            val inputStream: InputStream = context!!.assets.open("listdata.json")
+            inputStream.bufferedReader().use { it.readText() }
+        } catch (e: Exception) {
+            ""
+        }
     }
 
 
